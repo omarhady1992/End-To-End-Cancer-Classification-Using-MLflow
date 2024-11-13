@@ -6,7 +6,7 @@ with open('README.md', "r", encoding="utf-8") as f:
 
 __version__ = "0.0.0"
 
-REPO_NAME = "End-To-End-Cancer-Classification-Using-MLflow"
+REPO_NAME = "Chest_Cancer_Classification"
 AUTHOR_USER_NAME = "omarhady1992"
 SRC_REPO = "End-To-End-Cancer-Classification-Using-MLflow"
 AUTHOT_EMAIL = "ohady1992@gmail.com"
@@ -19,9 +19,9 @@ setuptools.setup(
     description="A package to use CNN to classifiy chest cancer",
     long_description= long_description,
     long_description_content_type="text/markdown",
-    url=f"https://github.com/{AUTHOR_USER_NAME}/{SRC_REPO}",
+    url=f"https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}",
     project_urls={
-        "Bug Tracker": f"https://github.com/{AUTHOR_USER_NAME}/{SRC_REPO}/issues",
+        "Bug Tracker": f"https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}/issues",
     },
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src")
