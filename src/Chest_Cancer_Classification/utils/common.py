@@ -2,7 +2,7 @@
 import os
 from box.exceptions import BoxValueError
 import yaml
-from Chest_Cancer_Classification import logger
+from src.Chest_Cancer_Classification import logger
 import json
 from ensure import ensure_annotations
 import joblib
