@@ -8,3 +8,18 @@ class DataIngestionConfiguration:
     source_url: str
     local_data_file: Path
     unzip_dir: Path 
+
+#Create data class for base model (update entity)
+from dataclasses import dataclass
+from pathlib import Path
+
+@dataclass
+class BaseModelConfig:
+    root_dir: Path
+    base_model_path: Path
+    updated_base_model_path: Path
+    params_image_size: list
+    params_learning_rate: float
+    params_include_top: bool
+    params_weight: str
+    params_classes: int
