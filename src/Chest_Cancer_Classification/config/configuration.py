@@ -1,6 +1,7 @@
-from Chest_Cancer_Classification.constants import *
-from Chest_Cancer_Classification.utils.common import create_directories, read_yaml
-from Chest_Cancer_Classification.entity.config_entity import DataIngestionConfiguration, BaseModelConfig
+import os
+from src.Chest_Cancer_Classification.constants import *
+from src.Chest_Cancer_Classification.utils.common import create_directories, read_yaml
+from src.Chest_Cancer_Classification.entity.config_entity import DataIngestionConfiguration, BaseModelConfig, TrainingConfig
 
 
 class ConfigurationManager:
@@ -46,3 +47,21 @@ class ConfigurationManager:
             params_weight= self.params.WEIGHTS,
             params_classes= self.params.CLASSES)
         return base_model_config
+    
+    def training_model_config(self)->TrainingConfig:
+        training= self.config.training
+        base_model = self.config.prepare_base_model
+        params = self.params
+        data = os.path.join(self.config.data_ingestion.unzip_dir, 'Chest-CT-Scan-data')
+
+        training_config = TrainingConfig(
+
+            root_dir=Path(training.root_dir),
+            trained_model_path=Path(training.trained_model_path),
+            updated_model_path=Path(base_model.updated_base_model_path),
+            training_data=Path(data),
+            params_epochs=params.EPOCHS,
+            params_batch_size=params.BATCH_SIZE,
+            params_is_augmentated=params.AUGMENTATION,
+            params_image_size=params.IMAGE_SIZE)
+        return training_config
