@@ -1,6 +1,6 @@
-from Chest_Cancer_Classification.config.configuration import ConfigurationManager
-from Chest_Cancer_Classification.components.data_ingestion import DataIngest
-from Chest_Cancer_Classification import logger
+from src.Chest_Cancer_Classification.config.configuration import ConfigurationManager
+from src.Chest_Cancer_Classification.components.data_ingestion import DataIngest
+from src.Chest_Cancer_Classification import logger
 
 
 

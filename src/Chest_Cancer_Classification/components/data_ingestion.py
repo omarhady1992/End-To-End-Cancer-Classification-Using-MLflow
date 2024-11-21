@@ -2,9 +2,9 @@
 
 import os
 import zipfile
-from Chest_Cancer_Classification.utils.common import get_size 
-from Chest_Cancer_Classification import logger
-from Chest_Cancer_Classification.entity.config_entity import DataIngestionConfiguration
+from src.Chest_Cancer_Classification.utils.common import get_size 
+from src.Chest_Cancer_Classification import logger
+from src.Chest_Cancer_Classification.entity.config_entity import DataIngestionConfiguration
 import gdown
 
 class DataIngest:
