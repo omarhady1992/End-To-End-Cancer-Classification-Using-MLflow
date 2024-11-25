@@ -30,6 +30,7 @@ class TrainingConfig:
     trained_model_path: Path
     updated_model_path: Path
     training_data: Path
+    params_learning_rate: float
     params_epochs: int
     params_batch_size: int
     params_is_augmentated: bool

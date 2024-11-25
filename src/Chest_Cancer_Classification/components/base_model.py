@@ -1,6 +1,7 @@
 import os
 import zipfile
 import tensorflow as tf
+from tensorflow.keras.optimizers import SGD, Adam
 from pathlib import Path
 from urllib import request
 from src.Chest_Cancer_Classification.entity.config_entity import BaseModelConfig
@@ -38,19 +39,20 @@ class BaseModel:
         '''
 
         if freeze_all:
-            for layers in model.layers:
-                model.trainable = False
-        elif (freeze_till is not None):
+            for layer in model.layers:
+                layer.trainable = False
+        elif (freeze_till is not None) and (freeze_till > 0):
             for layer in model.layers[:-freeze_till]:
-                model.trainable = False
+                layer.trainable = False
 
         flatten_in = tf.keras.layers.Flatten()(model.output)
         predict_in = tf.keras.layers.Dense(units=classes, activation = "softmax")(flatten_in)
 
         full_model = tf.keras.models.Model(inputs=model.input, outputs=predict_in )
+        SGD_Optimizer = SGD(learning_rate=learning_rate)
 
         full_model.compile(
-            optimizer=tf.keras.optimizers.SGD(learning_rate=learning_rate),
+            optimizer=SGD_Optimizer,
             loss=tf.keras.losses.CategoricalCrossentropy(),
             metrics=["accuracy"]
         )

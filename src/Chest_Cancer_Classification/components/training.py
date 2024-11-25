@@ -1,6 +1,7 @@
 from src.Chest_Cancer_Classification.constants import *
 from src.Chest_Cancer_Classification.utils.common import create_directories, read_yaml
 from src.Chest_Cancer_Classification.entity.config_entity import TrainingConfig
+from tensorflow.keras.optimizers import SGD
 import tensorflow as  tf
 
 
@@ -54,10 +55,25 @@ class Training:
             shuffle=True,
             **dataflow_kwargs
         )
-        
+
+
+    def create_optimizer(self):
+
+        SGD_Optimizer = SGD(learning_rate=self.config.params_learning_rate)
+        return SGD_Optimizer
+
+
     def train(self):
         self.steps_per_epoch = self.train_generator.samples // self.train_generator.batch_size
         self.validation_steps = self.valid_generator.samples // self.valid_generator.batch_size
+        SGD_Optimizer = self.create_optimizer()
+
+
+        self.model.compile(
+            optimizer=SGD_Optimizer,
+            loss=tf.keras.losses.CategoricalCrossentropy(),
+            metrics=["accuracy"]
+        )
 
         self.model.fit(
             self.train_generator,
