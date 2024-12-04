@@ -55,35 +55,21 @@ class Evaluation:
 
     
     def log_into_mlflow(self):
-        print(self.model.summary())
-        try:
-            self.model.save("model.keras")
-            print("saved model manually")
-        except Exception as e:
-            raise e
         mlflow.set_registry_uri(self.config.mlflow_uri)
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
         
-
         with mlflow.start_run():
-            # Log parameters and metrics
             mlflow.log_params(self.config.all_params)
-            mlflow.log_metrics({"loss": self.score[0], "accuracy": self.score[1]})
-            with tempfile.TemporaryDirectory() as tmp_dir:
-                saved_model_path = os.path.join(tmp_dir, "model.keras")
-                self.model.save(saved_model_path) 
-
-            # Check if the tracking store is not a file system
+            mlflow.log_metrics(
+                {"loss": self.score[0], "accuracy": self.score[1]}
+            )
+            # Model registry does not work with file store
             if tracking_url_type_store != "file":
-                # Register the model with a valid extension
-                mlflow.keras.log_model(
-                    self.model,
-                    artifact_path="model.keras",
-                    registered_model_name="VGG16Model.keras"
-                )
+
+                # Register the model
+                # There are other ways to use the Model Registry, which depends on the use case,
+                # please refer to the doc for more information:
+                # https://mlflow.org/docs/latest/model-registry.html#api-workflow
+                mlflow.keras.log_model(self.model, "model", registered_model_name="VGG16Model")
             else:
-                # Save locally with a valid extension
-                mlflow.keras.log_model(
-                    self.model, 
-                    "my_model/model.keras"  # Use `.keras` as the extension
-                )
+                mlflow.keras.log_model(self.model, "model")
