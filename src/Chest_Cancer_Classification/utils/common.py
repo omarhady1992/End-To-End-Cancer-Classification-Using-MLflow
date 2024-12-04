@@ -58,7 +58,7 @@ def load_jason(path: Path)-> ConfigBox:
     return ConfigBox(content)
 
 @ensure_annotations
-def save_jason(path: Path, data: dict)-> ConfigBox:
+def save_jason(path: Path, data: dict):
     '''
     a function that loads .json files 
 
