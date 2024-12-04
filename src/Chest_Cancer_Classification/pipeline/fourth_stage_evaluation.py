@@ -1,8 +1,11 @@
 from src.Chest_Cancer_Classification.config.configuration import ConfigurationManager
 from src.Chest_Cancer_Classification.components.evaluation import Evaluation
 from src.Chest_Cancer_Classification import logger
+import os
 
-
+os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/omarhady1992/End-To-End-Cancer-Classification-Using-MLflow.mlflow"
+os.environ["MLFLOW_TRACKING_USERNAME"]="omarhady1992"
+os.environ["MLFLOW_TRACKING_PASSWORD"]="Gagoal_123"
 
 STAGE_NAME = "Evaluation stage"
 
